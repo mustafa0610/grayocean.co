@@ -1,0 +1,21 @@
+{% extends 'blog/base.html' %}
+{% load bootstrap %}
+{% load crispy_forms_tags %}
+{% block content %} 
+	<div class="content-section pb-4" style="max-width: 90%;"> 
+	<form method="POST" enctype="multipart/form-data"> 
+	{% csrf_token %} 
+	<fieldset class="form-group"> 
+	<legend class="border-bottom mb-4">Add/Change Post</legend> 
+	{{ form|bootstrap }} 
+	</fieldset> 
+	<div class="form-group"> 
+		<br>
+	<button class="btn btn-dark" type="submit">Post</button> 
+	</div> 
+	</form> 
+	</div> 
+{% endblock %}
+
+
+

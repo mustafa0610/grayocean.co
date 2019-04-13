@@ -1,0 +1,15 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+
+<div class="pt-3 pb-3 mt-5">
+
+<form method="POST">
+	{% csrf_token %}
+	<p>are you sure you want to delete your comment "{{ comment.content }}"</p>
+	<input type="submit" class="btn btn-dark" value="confirm" >
+
+</form>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,261 @@
+{% extends "blog/base.html" %}
+{% block content %}
+<div class="ml-5 ">
+  <article class="media content-section">
+    <div>
+      <div>
+        <div id="parent" >
+          <div class="">
+            <br>
+            <img class="rounded-circle article-img" height="75" width="75" src="{{ post.author.profile.image.url }}">
+          </div>
+             <div>
+              <div class="container">
+                <a  class="mr-2 text-secondary" href="{% url 'user-posts' post.author.username %}"> <h4>{{ post.author }}</h4></a>
+                <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
+              </div>
+               <div class="container">
+              {%if post.author == request.user%}
+              &nbsp <a  href="{% url 'post-delete' post.id %}"> <i title="Delete Post" class="far fa-trash-alt"></i></a> &nbsp |  <a  href="{% url 'post-update' post.id %}">edit</a>
+              {% endif %}
+               </div>
+           </div>
+      </div>   
+            <div class="ml-3 ">
+              <div class="container">
+            <h3>{{ post.title }}</h3>
+            <p class="article-content">{{ post.content }}</p>
+            {% load static %}
+            {% if post.image %}
+            <div class="container">
+            <img id="media" style="max-width:95%;height:auto;" class="" src="{{ post.image.url }}" >
+            <div>
+              <div>
+            <a href="{{ post.image.url }}"><button class="btn mt-2 mb-2"><i class="fas fa-search-plus"></i>
+
+</button></a></div>  
+            </div>
+            </div>
+            {% endif %}
+            {% if post.image1 %}
+            <div class="container">
+            <img id="media" style="max-width:95%;height:auto;" class="" src="{{ post.image1.url }}" >
+            <div>
+              <div>
+            <a href="{{ post.image.url }}"><button class="btn mt-2 mb-2"><i class="fas fa-search-plus"></i></button></a></div>  
+            </div>
+            </div>
+            {% endif %}
+            {% if post.image2 %}
+            <div class="container">
+            <img id="media" style="max-width:95%;height:auto;" class="" src="{{ post.image2.url }}" >
+            <div>
+              <div>
+            <a href="{{ post.image.url }}"><button class="btn mt-2 mb-2"><i class="fas fa-search-plus"></i></button></a></div>  
+            </div>
+            </div>
+            {% endif %}
+            {% if post.image3 %}
+            <div class="container">
+            <img id="media" style="max-width:95%;height:auto;" class="" src="{{ post.image3.url }}" >
+            <div>
+              <div>
+            <a href="{{ post.image.url }}"><button class="btn mt-2 mb-2"><i class="fas fa-search-plus"></i></button></a></div>  
+            </div>
+            </div>
+            {% endif %}
+            {% if post.image4 %}
+            <div class="container">
+            <img id="media" style="max-width:95%;height:auto;" class="" src="{{ post.image4.url }}" >
+            <div>
+              <div>
+            <a href="{{ post.image.url }}"><button class="btn mt-2 mb-2"><i class="fas fa-search-plus"></i></button></a></div>  
+            </div>
+            </div>
+            {% endif %}
+            {% if post.video %}
+            <video id="media" src="{{ post.video.url }}"  controls>This browser doesnt support the video</video>
+            {% endif %}
+            {% if user.is_authenticated%}
+            </div>
+            <div id="reportcontainer" class="">
+            <div id="reportfirst">
+            <p>{{ likes.count }} Like{{ likes|pluralize }} &nbsp | &nbsp {{dislikes.count}} Dislike{{dislikes|pluralize}} &nbsp Post score {{score}}</p> 
+            </div>
+            <div id="reportsecond">
+            <form action="{% url 'report_post' post.id%}">
+                  <button style="background-color: #FFF5EE; color: hotpink;" type='submit' name='blog_id' value="{{ post.id }}" class="btn btn-lg d-inline-flex p-2"><i class="fas fa-flag fa-xs"></i>
+                  </button>
+                </form>
+            </div>
+             </div>
+             <br>
+             <br>
+           
+            <div id="like-section">
+              
+              {% include 'blog/like_section.html' %}
+              
+            </div>
+              <br>
+              
+              {% if is_commented %}
+              <div>
+                <br>
+                <i><p>Each user gets one comment per post!</p></i>
+              </div>
+
+              {% else %}
+              <div style="margin-right: 10%;">
+              <form method="post" class="input-lg" >
+                <div class="form-group ">
+
+                {% csrf_token %}
+                {{ comment_form.as_p }}
+                <input  class="btn btn-dark" type="submit" value="Post Comment"/>
+                </div>
+              </form>
+              </div>
+              {% endif %}
+
+              <div > 
+                {{ comment_full.count }} Comment{{ comment_full|pluralize }}
+                <div style="max-width: 80%">
+                {% for comment in comments %}
+                  
+                   <blockquote class="blockquote">
+                      <font size="3"> <i style="color: hotpink" class="fas fa-caret-right fa-sm"></i> &nbsp
+
+                           {{ comment.content }}
+                        
+
+              {% if comment.user == request.user %}
+                   <a class="deletebutton" href="{% url 'comment-delete' comment.pk %}"> <i title="Delete Comment" class="far fa-trash-alt"></i></a>
+              {% endif %}
+          <hr>
+              <br>
+        
+                {% endfor %}
+                
+               </blockquote>
+                 </div>
+              </div>
+                    </font> 
+                    </div> 
+                  {% if there_are_comments %}
+                    
+                   
+                   <a id="viewallcomments" href="{% url 'post-comments' post.id %}">View all comments on this post</a>
+                  {% endif %}
+
+                   
+                   </div>
+                   </div>
+                </div>
+      
+
+        </article>
+
+</div>
+{% else %}
+<div>
+<p style="color: navy"> <i>Please login to access the reviews and comments</i></p>
+</div>
+{% endif %}
+
+
+
+<style type="text/css">
+  
+.deletebutton {
+  font-size: small;
+  color: hotpink;
+ 
+ }
+ #viewallcomments{
+  font-size: medium;
+ }
+ #container {
+    width: 500px;
+}
+#first {
+    width: 50px;
+    float: left;
+}
+#second {
+    width: 50px;
+    float: left;
+}
+#third{
+  width: 50px;
+  float: right;
+  margin-right: 25%;
+}
+#clear {
+    clear: both;
+}
+ #reportcontainer {
+    width: 100%;
+}
+#reportfirst {
+    width: 250px;
+    float: left;
+}
+#reportsecond {
+    width: 50px;
+    float: left;
+}
+
+
+
+
+
+
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}
+

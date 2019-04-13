@@ -1,0 +1,125 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+
+
+{% for post in posts%}
+  {% if forloop.first %}
+ <div class="pt-2 pb-2">
+  <div>
+
+        <article class="media content-section">
+          <img height="125px" width="125px" class="rounded-circle article-img" src="{{ post.author.profile.image.url }}">
+             
+
+            <div>
+              <h5>{{ post.author }} ({{ page_obj.paginator.count }} posts)</h5>
+              {{post.author.profile.description}}
+              {{post.author.posts.likes.count}}
+          </div>
+              </div>
+
+              
+  {% endif %}
+  {% endfor %}
+
+<div>
+  <h5 align="center">Posts by this user</h5>
+<br>
+    {% for post in posts %}
+        
+
+
+
+
+
+
+
+
+        <hr>
+        
+        <div>
+
+        <article class="media content-section">
+          
+             
+
+            <div>
+              
+              
+          </div>
+              </div>
+
+              <div class="container">
+            <h5><b><a class="article-title" style="color: navy" href="{% url 'post-detail' post.id %}">{{ post.title }}  </a></b></h5>
+            <p class="article-content">{{ post.content }}</p>
+      
+            {% load static %}
+            {% if post.image %}
+            
+            <a class="article-title text-secondary" href="{% url 'post-detail' post.id %}">
+            <img id="media" style="max-width:95%;height:auto;" src="{{ post.image.url }}">
+          </a>
+
+            {% endif %}
+            
+            </div>
+            <div class="container">
+             {% if post.image2 %}
+            <a href="{% url 'post-detail' post.id %}">Click to see full post</a>
+            {% endif %}
+            </div>
+              <small class="text-muted">&nbsp &nbsp {{ post.date_posted|date:"F d, Y" }}</small>
+
+
+
+        </article>
+        <br><br>
+{% endfor %}
+
+
+
+
+
+
+
+{% if is_paginated %}
+
+
+  {% if page_obj.has_previous %}
+  {% if page_obj.number == 2 %}
+  <a id='nounderline' href="?page=1"><i class="fas fa-step-backward fa-2x"></i>
+&nbsp &nbsp </a>
+  {% else %}
+  <a id='nounderline' href="?page=1"><i class="fas fa-step-backward fa-2x"></i>
+&nbsp &nbsp </a>
+  <a id='nounderline' href="?page={{ page_obj.previous_page_number }}"><i class="fas fa-chevron-circle-left fa-2x"></i>
+&nbsp &nbsp </a>
+  {% endif %}
+  {% endif %}
+
+
+  {% if page_obj.has_next %}
+  <a id='nounderline' href="?page={{ page_obj.next_page_number }}"><i class="fas fa-chevron-circle-right fa-2x"></i> &nbsp &nbsp</a>
+  <a id='nounderline' href="?page={{ page_obj.paginator.num_pages }}"><i class="fas fa-step-forward fa-2x"></i></a>
+  {% endif %}
+
+
+{% endif %}
+
+</div>
+
+<style type="text/css">
+
+#nounderline{
+  text-decoration: none;
+  color: hotpink;
+} 
+</style>
+{% endblock %}
+
+
+
+
+
