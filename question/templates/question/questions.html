@@ -1,0 +1,31 @@
+{% extends "blog/base.html" %} 
+
+{% block content %}
+<div class="pb-2 pl-2"> 
+{% for question in questions %} 
+
+<h6>Q) {{question.content}}</h6> 
+
+{% if question.answer %}
+<p>A) {{question.answer}}</p>
+{% else %}
+<p style="color: hotpink"><i>Our team has recieved this question and we will answer ASAP.</i></p>
+{% endif %}
+<br>
+{% endfor %} 
+
+{% if answer %}
+
+<form method="post" class="input-lg" >
+
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input  class="btn btn-dark" type="submit" value="Ask question"/>
+              </form>
+
+              {% else %}
+              <p style="color: hotpink"><i>You've already asked a few questions that haven't been answered yet. We request you to be patient. The team will reply ASAP</i></p>
+
+              {% endif %}
+</div>
+{% endblock %} 

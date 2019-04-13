@@ -1,0 +1,26 @@
+{% extends 'blog/base.html'%}
+{% block content %}
+    <div class="content-section  pb-3">
+      <div class="media pt-3">
+        <img class="rounded-circle account-img" height="100" width="100" src="{{ user.profile.image.url }}">
+        <div class="media-body mt-2">
+          <h4 class="account-heading">  &nbsp &nbsp  Username : {{ user.username }}</h4>
+          <p class="text-secondary"> &nbsp &nbsp &nbsp  Email: {{ user.email }}</p>
+              
+            <div class="pl-4">
+              {% if user.profile.description %}
+              <p> About Me: {{ user.profile.description }} </p>
+              {% else %}
+              <p>You can tell people about you if you please </p>
+              {% endif %}
+            </div>
+
+
+        </div>
+      </div>
+<div>
+  <br><br>
+  <a href="{% url 'profile-change' %}"> change your profile</a>
+</div>
+    </div>
+{% endblock content %}
