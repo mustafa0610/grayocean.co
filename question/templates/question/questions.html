@@ -1,10 +1,13 @@
-{% extends "blog/base.html" %} 
+{% extends "blog/base.html" %}
+{% block title %}Questions{% endblock %}
 
 {% block content %}
-<div class="pb-2 pl-2"> 
-{% for question in questions %} 
+<div class="pb-2 pl-2">
+<h4>Questions:</h4>
+<br>
+{% for question in questions %}
 
-<h6>Q) {{question.content}}</h6> 
+<h6>Q) {{question.content}}</h6>
 
 {% if question.answer %}
 <p>A) {{question.answer}}</p>
@@ -12,7 +15,7 @@
 <p style="color: hotpink"><i>Our team has recieved this question and we will answer ASAP.</i></p>
 {% endif %}
 <br>
-{% endfor %} 
+{% endfor %}
 
 {% if answer %}
 
@@ -28,4 +31,4 @@
 
               {% endif %}
 </div>
-{% endblock %} 
+{% endblock %}
