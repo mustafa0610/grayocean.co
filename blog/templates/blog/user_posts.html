@@ -1,11 +1,13 @@
 {% extends 'blog/base.html' %}
-
+{% block title %} {% for post in posts %} {% if forloop.first%}{{ post.author}}'s Posts{% endif %} {% endfor%}{%endblock%}
 {% block content %}
+
 
 
 
 {% for post in posts%}
   {% if forloop.first %}
+  
  <div class="pt-2 pb-2">
   <div>
 
@@ -66,7 +68,7 @@
             
             </div>
             <div class="container">
-             {% if post.image2 %}
+             {% if post.image1 %}
             <a href="{% url 'post-detail' post.id %}">Click to see full post</a>
             {% endif %}
             </div>
