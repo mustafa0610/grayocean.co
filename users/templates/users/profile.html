@@ -1,4 +1,5 @@
 {% extends 'blog/base.html'%}
+{% block title %}Profile{%endblock%}
 {% block content %}
     <div class="content-section  pb-3">
       <div class="media pt-3">
@@ -6,7 +7,7 @@
         <div class="media-body mt-2">
           <h4 class="account-heading">  &nbsp &nbsp  Username : {{ user.username }}</h4>
           <p class="text-secondary"> &nbsp &nbsp &nbsp  Email: {{ user.email }}</p>
-              
+
             <div class="pl-4">
               {% if user.profile.description %}
               <p> About Me: {{ user.profile.description }} </p>
