@@ -1,30 +1,31 @@
 {% extends 'blog/base.html'%}
+{% block title %}Register{%endblock%}
 {% load bootstrap %}
 {% load crispy_forms_tags %}
 {% block content %}
-{% load crispy_forms_tags %}  
+{% load crispy_forms_tags %}
 {% if user.is_authenticated %}
 <p>You cant register while youre already logged in</p>
-{% else %} 
-	<div class="content-section ml-5"> 
-	<form method="POST"> 
-	<fieldset class="form-group"> 
-	<legend class="border-bottom mb-4">Join Today</legend> 
+{% else %}
+	<div class="content-section ml-5">
+	<form method="POST">
+	<fieldset class="form-group">
+	<legend class="border-bottom mb-4">Join Today</legend>
 	<div style="max-width: 500px;">
-	{% csrf_token %} 
-	{{ form|bootstrap }} 
+	{% csrf_token %}
+	{{ form|bootstrap }}
 	</div>
-	</fieldset> 
-	<div class="form-group"> 
-	<button class="btn btn-outline-info" type="submit">Sign Up</button> 
-	</div> 
-	</form> 
-	<div class="border-top pt-3"> 
-	<small class="text-muted"> 
-	Already Have An Account? <a class="ml-2" href="{% url 'login' %}">Sign In</a> 
-	</small> 
-	</div> 
-	</div> 
+	</fieldset>
+	<div class="form-group">
+	<button class="btn btn-outline-info" type="submit">Sign Up</button>
+	</div>
+	</form>
+	<div class="border-top pt-3">
+	<small class="text-muted">
+	Already Have An Account? <a class="ml-2" href="{% url 'login' %}">Sign In</a>
+	</small>
+	</div>
+	</div>
 	{% endif %}
 	</body>
 	</html>
