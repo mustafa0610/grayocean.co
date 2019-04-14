@@ -1,7 +1,8 @@
 {% extends "blog/base.html" %}
+{% block title %} Grayocean {% endblock %}
 {% block content %}
 
-<div style="padding-left: 30%">
+<div style="padding-left: 25%">
 <form class="form-inline" style="width: 90%;">
         <input
             class="form-control mr-sm-2"
@@ -16,33 +17,50 @@
 </button>
       </form>
 </div>
+<div class="ml-3">
+    {% if blogs %}
     {% for post in blogs %}
-    {% if post.content %}
-        <article class="media content-section">
-          <img class="rounded-circle article-img" height="100" width="100" src="{{ post.author.profile.image.url }}">
-          <div class="media-body">
-            <div class="article-metadata">
-              <a class="mr-2" href="{% url 'user-posts' post.author.username %}"> <h2>{{ post.author }}</h2></a>
-              <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
-            </div>
-            <h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
+    {% if post %}
+        <div>
+      <div>
+        <div id="parent" >
+          <div class="">
+            <br>
+            <img class="rounded-circle article-img" height="75" width="75" src="{{ post.author.profile.image.url }}">
+          </div>
+             <div>
+              <div class="container">
+                <a  class="mr-2 text-secondary" href="{% url 'user-posts' post.author.username %}"> <h4>{{ post.author }}</h4></a>
+                <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
+              </div>
+               <div class="container">
+              {%if post.author == request.user%}
+              &nbsp <a  href="{% url 'post-delete' post.id %}"> <i title="Delete Post" class="far fa-trash-alt"></i></a> &nbsp |  <a  href="{% url 'post-update' post.id %}">edit</a>
+              {% endif %}
+               </div>
+           </div>
+      </div>
+            <div class=" ">
+              <div class="">
+            <h5>{{ post.title }}</h5>
             <p class="article-content">{{ post.content }}</p>
             {% load static %}
             {% if post.image %}
-            <img id="home-media" src="{{ post.image.url }}">
+
+            <a class="article-title text-secondary" href="{% url 'post-detail' post.id %}">
+            <img id="media" style="max-width:95%;height:auto;" src="{{ post.image.url }}">
+          </a>
+
             {% endif %}
-            {% if post.video %}
-            <video id="home-media" src="{{ post.video.url }}" height="700" width="700" controls>This browser doesnt support the video</video>
             {% endif %}
-          </div>
-          <div id="like-section">
-            {% include 'blog/like_section.html' %}
-          </div>
-        </article>
-        {% else %}
-        {{post.author.username}}
-        {% endif %}
+            {% if post.image1 %}
+              <a href="{% url 'post-detail' post.id %}">Click to see full post</a>
+            {% endif %}
+
+
+        <hr>
 {% endfor %}
+</div>
 <br>
 {% if blogs %}
 <div class="pb-5">
@@ -51,15 +69,15 @@
 
   {% if blogs.has_previous %}
   {% if blogs.number == 2 %}
-  <a id="nounderline" href="?page=1"><i class="fas fa-step-backward fa-2x"></i>
-&nbsp &nbsp 
+  <a id="nounderline" href="?page=1&search={{search_term_extract}}"><i class="fas fa-step-backward fa-2x"></i>
+&nbsp &nbsp
 </a>
   {% else %}
-  <a id="nounderline" href="?page=1"><i class="fas fa-step-backward fa-2x"></i>
-&nbsp &nbsp 
+  <a id="nounderline" href="?page=1&search={{search_term_extract}}"><i class="fas fa-step-backward fa-2x"></i>
+&nbsp &nbsp
 </a>
   <a id="nounderline" href="?page={{ blogs.previous_page_number }}&search={{search_term_extract}}"><i class="fas fa-chevron-circle-left fa-2x"></i>
-&nbsp &nbsp 
+&nbsp &nbsp
 </a>
   {% endif %}
   {% endif %}
@@ -67,7 +85,7 @@
 
   {% if blogs.has_next %}
   <a id="nounderline" href="?page={{ blogs.next_page_number }}&search={{search_term_extract}}"><i class="fas fa-chevron-circle-right fa-2x"></i>
-&nbsp &nbsp 
+&nbsp &nbsp
 </a>
   <a id="nounderline" href="?page={{ blogs.paginator.num_pages }}&search={{search_term_extract}}"><i class="fas fa-step-forward fa-2x"></i>
 
@@ -76,9 +94,117 @@
 </div>
 
 {% endif %}
+{% else%}
+<div class="pt-4 pl-2 pb-2">
+    <h4>Below is a list of the creators we have selected.</h4>
+<h6>We know there are a lot of Comic Artists :P . Thats because their work is easy to verify and has less chance of being plagiarized.</h6><br>
+<p style="color: deeppink">
+    Artbyjuliet(Comic Artist)</br>
+
+Artbymoga(Comic Artist)</br>
+
+Average_girl_webcomic(Comic Artist)</br>
+
+Beanscoffey810(Writer/Poet)</br>
+
+Cappuchinnu(Comic Artist)</br>
+
+Catncatcomics(Comic Artist)</br>
+
+Jaydarquem(Comic Artist)</br>
+
+Cinimomocomics(Comic Artist)</br>
+
+Comictoonn(Comic Artist)</br>
+
+Dailyskyfox(Comic Artist)</br>
+
+Dinacomics(Comic Artist)</br>
+
+Essypinkdog(Comic Artist)</br>
+
+Faberillustrated(Comic Artist)</br>
+
+Fishballishere(Comic Artist)</br>
+
+Frodopidjin(Comic Artist)</br>
+
+Georgedrawz(Comic Artist)</br>
+
+Grim_b(Comic Artist)</br>
+
+Gyung_studio(Comic Artist)</br>
+
+Hubman.chubgirl(Comic Artist)</br>
+
+Hyueso_studio(Comic Artist)</br>
+
+Itsweinye(Comic Artist)</br>
+
+j.d.maude.poet(Writer/Poet)</br>
+
+Kotopopi(Comic Artist)</br>
+
+Life_of_bibi(Comic Artist)</br>
+
+Lifeasabigdummy(Comic Artist)</br>
+
+Lonewolf.musings(Writer/Poet)</br>
+
+Lovehandlecomics(Comic Artist)</br>
+
+Luveyxdovey(Comic Artist)</br>
+
+Mabvutocomics(Comic Artist)</br>
+
+Mary.comics(Comic Artist)</br>
+
+Miss.pad_thai(Comic Artist)</br>
+
+Momo_tales(Comic Artist)</br>
+
+Mrs.frollein(Comic Artist)</br>
+
+Murrzstudio(Comic Artist)</br>
+
+Planetclulu(Comic Artist)</br>
+
+Potatowithpersonality(Comic Artist)</br>
+
+Redfur_13(ComicArtist)</br>
+
+Sanesparza(Comic Artist)</br>
+
+Sarahscomiclife(Comic Artist)</br>
+
+Sebastian_oaches(Comic Artist)</br>
+
+Showerthoughtscomics(Comic Artist)</br>
+
+Siberianlizard(Comic Artist)</br>
+
+Slocomics(Comic Artist)</br>
+
+Hjstory.official(Comic Artist)</br>
+
+The.sarma((Writer/Poet))</br>
+
+The__reddot(Comic Artist)</br>
+
+Thechibicomics(Comic Artist)</br>
+
+Thepotatocouple(Comic Artist)</br>
+
+Threeundertherain(Comic Artist)</br>
+
+Webarebears.official(Comic Artist)</br>
+</p>
+
+</div>
+{% endif %}
 
 <style type="text/css">
-  
+
 #nounderline {
   text-decoration: none;
   color: hotpink
