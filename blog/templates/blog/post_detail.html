@@ -1,6 +1,8 @@
 {% extends "blog/base.html" %}
+{% block title %}{{post.author}}'s Post {%endblock%}
 {% block content %}
-<div class="ml-5 ">
+<div class="container" >
+<div class="pl-5 ">
   <article class="media content-section">
     <div>
       <div>
@@ -212,6 +214,7 @@
 
 
 </style>
+</div>
 
 
 
